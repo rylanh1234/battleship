@@ -63,3 +63,9 @@ function Gameboard() {
         }
     };
 };
+
+function Player() {
+    return {
+        gameboard: new Gameboard()
+    };
+};
