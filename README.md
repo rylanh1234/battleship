@@ -1,1 +1,2 @@
 # battleship
+Classic game "Battleship"
