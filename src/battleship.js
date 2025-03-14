@@ -19,29 +19,40 @@ function Ship() {
 function Gameboard() {
     return {
         boardSize: 10,
-        board: new createBoard(),
+        board: [],
         visited: new Set(),
         numShips: 0,
         shipsSunk: 0,
 
         createBoard() {
-            const rows = new Array(this.boardSize);
-            rows.forEach(() => {
-                const column = new Array(this.boardSize);
+            for (let i = 0; i < this.boardSize; i++) {
+                this.board.push([]);
+            }
+            this.board.forEach((row) => {
+                for (let i = 0; i < this.boardSize; i++) {
+                    row.push([]);
+                }
             });
 
         },
         placeShip(x, y, length, horizontal) {
+            // if (horizontal) {
+            //     if (x > 0 && x + length < 11) {
+
+            //     };
+            // };
             const newShip = new Ship();
             newShip.length = length;
             this.board[x][y] = newShip;
             if (horizontal) {
-                for (let i = 1; i < newShip.length; i++) {
-                    this.board[x + 1][y] = newShip;
+                for (let i = 0; i < newShip.length; i++) {
+                    this.board[x + i][y] = newShip;
                 };
-            };
-            for (let i = 1; i < newShip.length; i++) {
-                this.board[x][y + 1] = newShip;
+            }
+            else {
+                for (let i = 0; i < newShip.length; i++) {
+                    this.board[x][y + i] = newShip;
+                };
             };
             this.numShips += 1;
         },
@@ -66,6 +77,12 @@ function Gameboard() {
 
 function Player() {
     return {
-        gameboard: new Gameboard()
+        playerBoard: new Gameboard(),
+
+        initBoard() {
+            this.playerBoard.createBoard();
+        }
     };
 };
+
+export { Player };
