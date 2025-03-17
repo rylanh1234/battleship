@@ -36,25 +36,29 @@ function Gameboard() {
 
         },
         placeShip(x, y, length, horizontal) {
-            // if (horizontal) {
-            //     if (x > 0 && x + length < 11) {
-
-            //     };
-            // };
-            const newShip = new Ship();
-            newShip.length = length;
-            this.board[x][y] = newShip;
             if (horizontal) {
-                for (let i = 0; i < newShip.length; i++) {
-                    this.board[x + i][y] = newShip;
+                if (x > 0 && x + length < 11) {
+                    const newShip = new Ship();
+                    newShip.length = length;
+                    this.board[x][y] = newShip;
+                    for (let i = 0; i < newShip.length; i++) {
+                        this.board[x + i][y] = newShip;
+                    };
+                    this.numShips += 1;
                 };
             }
-            else {
-                for (let i = 0; i < newShip.length; i++) {
-                    this.board[x][y + i] = newShip;
+            else if (!horizontal) {
+                if (y > 0 && y + length < 11) {
+                    const newShip = new Ship();
+                    newShip.length = length;
+                    this.board[x][y] = newShip;
+                    for (let i = 0; i < newShip.length; i++) {
+                        this.board[x][y + i] = newShip;
+                    };
+                    this.numShips += 1;
                 };
             };
-            this.numShips += 1;
+
         },
         receiveAttack(x, y) {
             if (!this.visited.has([x, y].toString())) {
