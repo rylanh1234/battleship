@@ -29,6 +29,17 @@ function displayBoard(playerType, boardSize) {
     }
 };
 
+function displayShip(x, y) {
+    const board = document.querySelector("#realBoard");
+    const cellIdx = y * 10 + x;
+    const cell = board.children[cellIdx];
+    const ship = document.createElement("div");
+    ship.style.width = "25px";
+    ship.style.height = "25px";
+    ship.style.backgroundColor = "blue";
+    cell.appendChild(ship);
+}
+
 function displayHit(playerType, x, y, hit) {
     let board = null;
     if (playerType === "real") {
@@ -37,7 +48,7 @@ function displayHit(playerType, x, y, hit) {
     else {
         board = document.querySelector("computerBoard");
     }
-    const cellIdx = x * 10 + y;
+    const cellIdx = y * 10 + x;
     const cell = board.children[cellIdx];
     if (hit) {
         const target = document.createElement("div");
@@ -56,4 +67,4 @@ function displayHit(playerType, x, y, hit) {
     }
 };
 
-export { displayBoard, displayHit };
+export { displayBoard, displayShip, displayHit };
