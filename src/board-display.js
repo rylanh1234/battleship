@@ -1,14 +1,20 @@
-function displayBoard(boardSize) {
-    const container = document.querySelector("#container");
-    const boardContainer = document.createElement("div");
-    boardContainer.setAttribute("id", "boardContainer");
-    boardContainer.style.display = "grid";
-    boardContainer.style.gridTemplateColumns = `repeat(${boardSize}, 75px)`;
-    boardContainer.style.gridTemplateRows = `repeat(${boardSize}, 75px)`;
-    boardContainer.style.marginTop = "10vh";
-    boardContainer.style.alignItems = "center";
-    boardContainer.style.justifyContent = "center";
-    container.appendChild(boardContainer);
+function displayBoard(playerType, boardSize) {
+    const boardContainer = document.querySelector("#boardContainer");
+    const board = document.createElement("div");
+    board.classList.add("board");
+    if (playerType === "real" ) {
+        board.setAttribute("id", "realBoard");
+    }
+    else {
+        board.setAttribute("id", "computerBoard");
+    }
+    board.style.display = "grid";
+    board.style.gridTemplateColumns = `repeat(${boardSize}, 40px)`;
+    board.style.gridTemplateRows = `repeat(${boardSize}, 40px)`;
+    board.style.marginTop = "5vh";
+    board.style.alignItems = "center";
+    board.style.justifyContent = "center";
+    boardContainer.appendChild(board);
 
     for (let i = 0; i < boardSize **2; i++) {
         const cell = document.createElement("div");
@@ -19,18 +25,24 @@ function displayBoard(boardSize) {
         cell.style.display = "flex";
         cell.style.alignItems = "center";
         cell.style.justifyContent = "center";
-        boardContainer.appendChild(cell);
+        board.appendChild(cell);
     }
 };
 
-function displayHit(x, y, hit) {
-    const boardContainer = document.querySelector("#boardContainer");
+function displayHit(playerType, x, y, hit) {
+    let board = null;
+    if (playerType === "real") {
+        board = document.querySelector("#realBoard");
+    }
+    else {
+        board = document.querySelector("computerBoard");
+    }
     const cellIdx = x * 10 + y;
-    const cell = boardContainer.children[cellIdx];
+    const cell = board.children[cellIdx];
     if (hit) {
         const target = document.createElement("div");
-        target.style.width = "50px";
-        target.style.height = "50px";
+        target.style.width = "25px";
+        target.style.height = "25px";
         target.style.backgroundColor = "red";
         target.style.borderRadius = "50%";
         cell.appendChild(target);
@@ -38,7 +50,7 @@ function displayHit(x, y, hit) {
     else if (!hit) {
         const target = document.createElement("div");
         target.textContent = "\u2715";
-        target.style.fontSize = "75px"
+        target.style.fontSize = "40px"
         target.style.color = "gray";
         cell.appendChild(target);
     }

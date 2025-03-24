@@ -79,8 +79,9 @@ function Gameboard() {
     };
 };
 
-function Player() {
+function Player(type) {
     return {
+        playerType: type,
         playerBoard: new Gameboard(),
 
         initBoard() {
