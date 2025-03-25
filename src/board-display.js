@@ -46,7 +46,7 @@ function displayHit(playerType, x, y, hit) {
         board = document.querySelector("#realBoard");
     }
     else {
-        board = document.querySelector("computerBoard");
+        board = document.querySelector("#computerBoard");
     }
     const cellIdx = y * 10 + x;
     const cell = board.children[cellIdx];

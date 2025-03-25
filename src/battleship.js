@@ -62,13 +62,17 @@ function Gameboard() {
         },
         receiveAttack(x, y) {
             if (!this.visited.has([x, y].toString())) {
-                if (this.board[y][x]) {
-                    this.board[y][x].hit();
-                };
                 this.visited.add([x, y].toString());
-                return true;
+                if (this.board[y][x].length) {
+                    this.board[y][x].hit();
+                    return [false, true]; // non-dupe, hit
+                }
+                else {
+                    return [false, false]; // non-dupe, miss
+                };
             };
-            return false; // pick another coordinate
+            alert("This coordinate has already been targeted."); // pick another coordinate
+            return [true, false]; // dupe
         },
         shipsRemaining() {
             if (!this.numShips == this.shipsSunk) {

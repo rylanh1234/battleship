@@ -7,5 +7,6 @@ realPlayer.playerBoard.placeShip(3, 4, 5, false);
 
 const computerPlayer = new Player("computer");
 computerPlayer.initBoard();
+computerPlayer.playerBoard.placeShip(0, 0, 3, true);
 
 export { realPlayer, computerPlayer };
