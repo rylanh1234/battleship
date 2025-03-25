@@ -10,10 +10,19 @@ const selectCell = (function() {
             const y = Math.floor(cellIdx / 10);
             const x = cellIdx % 10; // x = cellIdx - y * 10
             const [isDupe, isHit] = computerPlayer.playerBoard.receiveAttack(x, y);
-            console.log(isDupe)
             if (!isDupe) {
                 displayHit(computerPlayer.playerType, x, y, isHit);
             };
+            if (isHit) {
+                const shipSunk = computerPlayer.playerBoard.board[y][x].isSunk();
+                if (shipSunk) {
+                    computerPlayer.playerBoard.shipsSunk += 1;
+                    const continueGame = computerPlayer.playerBoard.shipsRemaining();
+                    if (!continueGame) {
+                        alert("Game Over! You Win");
+                    }
+                };
+            }
         });
     };
 })();
