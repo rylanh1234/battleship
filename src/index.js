@@ -1,4 +1,4 @@
-import { realPlayer, computerPlayer } from "./players";
+import { realPlayer, computerPlayer, realTurn ,computerTurn } from "./players";
 import { displayBoard, displayShip, displayHit } from "./board-display";
 
 displayBoard(realPlayer.playerType, realPlayer.playerBoard.boardSize);
@@ -9,20 +9,6 @@ const selectCell = (function() {
         cell.addEventListener("click", () => {
             const y = Math.floor(cellIdx / 10);
             const x = cellIdx % 10; // x = cellIdx - y * 10
-            const [isDupe, isHit] = computerPlayer.playerBoard.receiveAttack(x, y);
-            if (!isDupe) {
-                displayHit(computerPlayer.playerType, x, y, isHit);
-            };
-            if (isHit) {
-                const shipSunk = computerPlayer.playerBoard.board[y][x].isSunk();
-                if (shipSunk) {
-                    computerPlayer.playerBoard.shipsSunk += 1;
-                    const continueGame = computerPlayer.playerBoard.shipsRemaining();
-                    if (!continueGame) {
-                        alert("Game Over! You Win");
-                    }
-                };
-            }
         });
     };
 })();
@@ -31,7 +17,18 @@ for (const [rowIdx, row] of realPlayer.playerBoard.board.entries()) {
     for (const [colIdx, ship] of row.entries()) {
     if (ship.length) {
         displayShip(colIdx, rowIdx);
-    }}
-}
-displayHit(realPlayer.playerType, 2, 2, true);
-displayHit(realPlayer.playerType, 6, 4, false);
+    }};
+};
+
+const playGame = (function() {
+    let continueGame = true;
+    while (continueGame) {
+        realTurn(x, y);
+        if (!continueGame) {
+            alert("Game Over! You Win!");
+            break; // game over, real player win
+        };
+        computerTurn();
+    }; // if loop ends, game over, computer player win
+    alert("Game Over! The Computer Won!");
+})();

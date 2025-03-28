@@ -71,7 +71,6 @@ function Gameboard() {
                     return [false, false]; // non-dupe, miss
                 };
             };
-            alert("This coordinate has already been targeted."); // pick another coordinate
             return [true, false]; // dupe
         },
         shipsRemaining() {
