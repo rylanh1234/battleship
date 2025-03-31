@@ -74,7 +74,7 @@ function Gameboard() {
             return [true, false]; // dupe
         },
         shipsRemaining() {
-            if (!this.numShips == this.shipsSunk) {
+            if (!this.numShips === this.shipsSunk) {
                 return true;
             };
             return false;

@@ -18,7 +18,7 @@ async function selectCell() {
                 const y = Math.floor(cellIdx / 10);
                 const x = cellIdx % 10; // x = cellIdx - y * 10
                 resolve([x, y]);
-            });
+            }, {once: true});
         };
     });
 };
@@ -35,10 +35,11 @@ async function realTurn(continueGame) {
                 continueGame = computerPlayer.playerBoard.shipsRemaining();
             };
         };
+        return continueGame;
     }
     else {
         alert("This coordinate has already been targeted."); // pick another coordinate
-        realTurn();
+        return realTurn(continueGame);
     };
 };
 
@@ -55,9 +56,11 @@ function computerTurn(continueGame) {
                 continueGame = realPlayer.playerBoard.shipsRemaining();
             };
         };
+        console.log(computerPlayer.playerBoard.visited)
+        return continueGame;
     }
     else {
-        computerTurn();
+        return computerTurn(continueGame);
     };
 };
 

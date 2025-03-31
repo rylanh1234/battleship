@@ -14,14 +14,14 @@ for (const [rowIdx, row] of realPlayer.playerBoard.board.entries()) {
 
 (async function playGame() {
     let continueGame = true;
+    let winner = "The Computer";
     while (continueGame) {
-        await realTurn(continueGame)
+        continueGame = await realTurn(continueGame)
         if (!continueGame) {
-            alert("Game Over! You Win!");
+            winner = "You";
             break; // game over, real player win
         };
-        computerTurn(continueGame);
-        console.log(continueGame)
-    }; // if loop ends, game over, computer player win
-    alert("Game Over! The Computer Won!");
+        continueGame = computerTurn(continueGame);
+    }; // if loop ends without break, game over, computer player win
+    alert("Game Over! " + winner + " Won!");
 })();

@@ -2,7 +2,7 @@ function displayBoard(playerType, boardSize) {
     const boardContainer = document.querySelector("#boardContainer");
     const board = document.createElement("div");
     board.classList.add("board");
-    if (playerType === "real" ) {
+    if (playerType === "real") {
         board.setAttribute("id", "realBoard");
     }
     else {
@@ -16,7 +16,7 @@ function displayBoard(playerType, boardSize) {
     board.style.justifyContent = "center";
     boardContainer.appendChild(board);
 
-    for (let i = 0; i < boardSize **2; i++) {
+    for (let i = 0; i < boardSize ** 2; i++) {
         const cell = document.createElement("div");
         cell.classList.add("cell");
         cell.style.width = "100%";
@@ -51,12 +51,18 @@ function displayHit(playerType, x, y, hit) {
     const cellIdx = y * 10 + x;
     const cell = board.children[cellIdx];
     if (hit) {
-        const target = document.createElement("div");
-        target.style.width = "25px";
-        target.style.height = "25px";
-        target.style.backgroundColor = "red";
-        target.style.borderRadius = "50%";
-        cell.appendChild(target);
+        if (cell.hasChildNodes()) {
+            const target = cell.firstElementChild;
+            target.style.backgroundColor = "red";
+        }
+        else {
+            const target = document.createElement("div");
+            target.style.width = "25px";
+            target.style.height = "25px";
+            target.style.backgroundColor = "red";
+            target.style.borderRadius = "50%";
+            cell.appendChild(target);
+        };
     }
     else if (!hit) {
         const target = document.createElement("div");
