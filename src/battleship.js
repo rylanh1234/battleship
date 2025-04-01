@@ -37,25 +37,57 @@ function Gameboard() {
         },
         placeShip(x, y, length, horizontal) {
             if (horizontal) {
+                // check if within bounds
                 if (x >= 0 && x + length < 11) {
-                    const newShip = new Ship();
-                    newShip.length = length;
-                    this.board[y][x] = newShip;
-                    for (let i = 0; i < newShip.length; i++) {
-                        this.board[y][x + i] = newShip;
+                    // check if cells already have ship
+                    let shipOverlap = false;
+                    for (let i = 0; i < length; i++) {
+                        if (this.board[y][x + i].length) {
+                            shipOverlap = true;
+                        }
                     };
-                    this.numShips += 1;
+                    if (!shipOverlap) {
+                        const newShip = new Ship();
+                        newShip.length = length;
+                        this.board[y][x] = newShip;
+                        for (let i = 0; i < newShip.length; i++) {
+                            this.board[y][x + i] = newShip;
+                        };
+                        this.numShips += 1;
+                        return true;
+                    }
+                    else {
+                        return false;
+                    };
+                }
+                else {
+                    return false;
                 };
             }
             else if (!horizontal) {
                 if (y >= 0 && y + length < 11) {
-                    const newShip = new Ship();
-                    newShip.length = length;
-                    this.board[y][x] = newShip;
-                    for (let i = 0; i < newShip.length; i++) {
-                        this.board[y + i][x] = newShip;
+                    let shipOverlap = false;
+                    for (let i = 0; i < length; i++) {
+                        if (this.board[y + i][x].length) {
+                            shipOverlap = true;
+                        }
                     };
-                    this.numShips += 1;
+                    if (!shipOverlap) {
+                        const newShip = new Ship();
+                        newShip.length = length;
+                        this.board[y][x] = newShip;
+                        for (let i = 0; i < newShip.length; i++) {
+                            this.board[y + i][x] = newShip;
+                        };
+                        this.numShips += 1;
+                        return true;
+                    }
+                    else {
+                        return false;
+                    };
+                }
+                else {
+                    return false;
                 };
             };
 
