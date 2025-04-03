@@ -11,7 +11,7 @@ displayBoard(computerPlayer.playerType, computerPlayer.playerBoard.boardSize);
         for (const [colIdx, ship] of row.entries()) {
             if (ship.length) {
                 displayShip(colIdx, rowIdx);
-            }
+            };
         };
     };
     let continueGame = true;
