@@ -3,12 +3,9 @@ import { displayHit } from "./board-display";
 
 const realPlayer = new Player("real");
 realPlayer.initBoard();
-realPlayer.playerBoard.placeShip(0, 0, 3, true);
-realPlayer.playerBoard.placeShip(3, 4, 5, false);
 
 const computerPlayer = new Player("computer");
 computerPlayer.initBoard();
-computerPlayer.playerBoard.placeShip(0, 0, 3, true);
 
 async function selectCell(playerType) {
     return new Promise(resolve => {
@@ -45,7 +42,7 @@ async function shipPlacement(playerType) {
     }
     else {
         for (let length = minShipLength; length < maxShipLength + 1; length++) {
-            const direction = prompt("Choose horizontal or vertical for the ship of length" + length + ". Then, select a coordinate to place the ship's head.").toLowerCase();
+            const direction = prompt("Choose horizontal or vertical for the ship of length " + length + ". Then, select a coordinate to place the ship's head.").toLowerCase();
             const [x, y] = await selectCell(realPlayer.playerType);
             let shipPlaced = null;
             if (direction === "horizontal" || direction === "h") {
@@ -57,7 +54,7 @@ async function shipPlacement(playerType) {
             else {
                 alert("Please choose either horizontal or vertical direction for the ship.");
                 length -= 1;
-            }
+            };
             if (shipPlaced === false) {
                 alert("Invalid ship placement. The ship is out of bounds or overlaps another ship.");
                 length -= 1;
@@ -106,4 +103,4 @@ function computerTurn(continueGame) {
     };
 };
 
-export { realPlayer, computerPlayer, realTurn, computerTurn };
+export { realPlayer, computerPlayer, shipPlacement, realTurn, computerTurn };
